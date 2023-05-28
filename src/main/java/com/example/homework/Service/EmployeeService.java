@@ -15,10 +15,11 @@ import static org.apache.commons.lang3.StringUtils.isAlpha;
 
 @Service
 public class EmployeeService {
+    private static final int SIZE=10;
     private final List<Employee> employees = new ArrayList<>();
 
     public EmployeeService() {
-        employees.addAll(List.of(
+       /* employees.addAll(List.of(
                 new Employee("Ivan", "Ivanov",35434,1),
                 new Employee("Petr", "Petrov",116843,3),
                 new Employee("Sergey", "Gerasimov",62483,5),
@@ -28,13 +29,9 @@ public class EmployeeService {
                 new Employee("Руслан", "Змеев",64587,4),
                 new Employee("Елена", "Пурьева",54368,5),
                 new Employee("Алексей", "Титов",96735,1)
-        ));
+        ));*/
     }
-
-
-
-
-    public void addEmployee(Employee employee)
+    public Employee addEmployee(Employee employee)
             throws EmployeeStorageIsFullException,
             EmployeeAlreadyAddedException {
         if (employees.contains(employee)) {
@@ -42,10 +39,11 @@ public class EmployeeService {
         } else {
             employees.add(employee);
         }
-        if (employees.size() > 11) {
+        if (employees.size() > SIZE) {
             throw new EmployeeStorageIsFullException();
         }
         validateInput(employee.getFirstName(),employee.getLastName());
+        return employee;
     }
 
     public void employeeRemove(Employee employee) throws EmployeeNotFoundException {

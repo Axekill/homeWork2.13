@@ -3,6 +3,7 @@ package com.example.homework.Service;
 import com.example.homework.Employee;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class DepartmentService {
     public DepartmentService(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
+
 
     public Employee maxSalary(int department) {
         return employeeService.getEmployees().stream()
@@ -31,9 +33,11 @@ public class DepartmentService {
                 .orElse(null);
     }
 
-    public Stream<Employee> departmentAll(int department) {
-        return employeeService.getEmployees().stream()
-                .filter(employee -> employee.getDepartmentId() == department);
+    public Collection<Employee> departmentAll(int department) {
+        return employeeService.getEmployees()
+                .stream()
+                .filter(employee -> employee.getDepartmentId() == department)
+                .collect(Collectors.toList());
     }
 
     public Map<Integer, List<Employee>> all() {
